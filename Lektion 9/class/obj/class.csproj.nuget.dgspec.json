@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/skqu/code/lektioner/livecode/class/class.csproj": {}
+    "/home/skqu/Undervisning/pbi25AppII/Lektion 9/class/class.csproj": {}
   },
   "projects": {
-    "/home/skqu/code/lektioner/livecode/class/class.csproj": {
+    "/home/skqu/Undervisning/pbi25AppII/Lektion 9/class/class.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/skqu/code/lektioner/livecode/class/class.csproj",
+        "projectUniqueName": "/home/skqu/Undervisning/pbi25AppII/Lektion 9/class/class.csproj",
         "projectName": "class",
-        "projectPath": "/home/skqu/code/lektioner/livecode/class/class.csproj",
+        "projectPath": "/home/skqu/Undervisning/pbi25AppII/Lektion 9/class/class.csproj",
         "packagesPath": "/home/skqu/.nuget/packages/",
-        "outputPath": "/home/skqu/code/lektioner/livecode/class/obj/",
+        "outputPath": "/home/skqu/Undervisning/pbi25AppII/Lektion 9/class/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/skqu/.nuget/NuGet/NuGet.Config"

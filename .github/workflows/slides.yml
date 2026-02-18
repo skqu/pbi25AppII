@@ -26,7 +26,6 @@ jobs:
         with:
           node-version: "lts/*"
           cache: "npm"
-          # cache alle lockfiles i repoet (når du får flere lektioner)
           cache-dependency-path: "**/package-lock.json"
 
       - name: Build all Slidev decks
@@ -41,8 +40,12 @@ jobs:
           mkdir -p "$OUT_DIR"
 
           # Find alle slidev-projekter under "Lektion */slidev"
-          # (tilpas evt. hvis du senere ændrer navngivning)
-          mapfile -d '' SLIDEV_DIRS < <(find . -type f -path "./Lektion */slidev/package.json" -print0 | xargs -0 -n1 dirname | sort -u | tr '\n' '\0')
+          mapfile -d '' SLIDEV_DIRS < <(
+            find . -type f -path "./Lektion */slidev/package.json" -print0 \
+            | xargs -0 -n1 dirname \
+            | sort -u \
+            | tr '\n' '\0'
+          )
 
           if [ "${#SLIDEV_DIRS[@]}" -eq 0 ]; then
             echo "Ingen Slidev projekter fundet under './Lektion */slidev'."
@@ -52,7 +55,6 @@ jobs:
           echo "Fundne Slidev projekter:"
           printf ' - %s\n' "${SLIDEV_DIRS[@]}"
 
-          # Byg en simpel index-side
           INDEX_FILE="$OUT_DIR/index.html"
           cat > "$INDEX_FILE" <<'HTML'
           <!doctype html>
@@ -64,4 +66,66 @@ jobs:
             <style>
               body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; }
               h1 { margin-bottom: 1rem; }
-              ul { line-height: 1.9
+              ul { line-height: 1.9; padding-left: 1.2rem; }
+              a { text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .hint { color: #666; font-size: .95rem; margin-top: .5rem; }
+            </style>
+          </head>
+          <body>
+            <h1>Slides</h1>
+            <ul>
+          HTML
+
+          for DIR in "${SLIDEV_DIRS[@]}"; do
+            LESSON_DIR="$(dirname "$DIR")"
+            LESSON_NAME="$(basename "$LESSON_DIR")"
+
+            SLUG="$(echo "$LESSON_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[[:space:]]+/-/g')"
+
+            echo ""
+            echo "==> Bygger: $LESSON_NAME ($DIR) -> /$REPO_NAME/$SLUG/"
+
+            npm ci --prefix "$DIR"
+            npm run build --prefix "$DIR" -- --base "/$REPO_NAME/$SLUG/"
+
+            mkdir -p "$OUT_DIR/$SLUG"
+            rsync -a --delete "$DIR/dist/" "$OUT_DIR/$SLUG/"
+
+            echo "              <li><a href=\"./$SLUG/\">$LESSON_NAME</a></li>" >> "$INDEX_FILE"
+          done
+
+          cat >> "$INDEX_FILE" <<'HTML'
+            </ul>
+            <p class="hint">Automatisk genereret af GitHub Actions.</p>
+          </body>
+          </html>
+          HTML
+
+      - name: Debug output
+        run: |
+          echo "== site top =="
+          ls -la site || true
+          echo "== files (maxdepth 2) =="
+          find site -maxdepth 2 -type f | head -n 100 || true
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
