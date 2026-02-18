@@ -21,34 +21,47 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
+          node-version: "lts/*"
+          cache: "npm"
+          # cache alle lockfiles i repoet (når du får flere lektioner)
+          cache-dependency-path: "**/package-lock.json"
 
-      - name: Setup @antfu/ni
-        run: npm i -g @antfu/ni
+      - name: Build all Slidev decks
+        shell: bash
+        run: |
+          set -euo pipefail
 
-      - name: Install dependencies
-        run: nci
+          REPO_NAME="${{ github.event.repository.name }}"
+          OUT_DIR="site"
 
-      - name: Build
-        run: nr build --base /${{github.event.repository.name}}/
+          rm -rf "$OUT_DIR"
+          mkdir -p "$OUT_DIR"
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+          # Find alle slidev-projekter under "Lektion */slidev"
+          # (tilpas evt. hvis du senere ændrer navngivning)
+          mapfile -d '' SLIDEV_DIRS < <(find . -type f -path "./Lektion */slidev/package.json" -print0 | xargs -0 -n1 dirname | sort -u | tr '\n' '\0')
 
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+          if [ "${#SLIDEV_DIRS[@]}" -eq 0 ]; then
+            echo "Ingen Slidev projekter fundet under './Lektion */slidev'."
+            exit 1
+          fi
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    name: Deploy
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          echo "Fundne Slidev projekter:"
+          printf ' - %s\n' "${SLIDEV_DIRS[@]}"
+
+          # Byg en simpel index-side
+          INDEX_FILE="$OUT_DIR/index.html"
+          cat > "$INDEX_FILE" <<'HTML'
+          <!doctype html>
+          <html lang="da">
+          <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width,initial-scale=1" />
+            <title>Slides</title>
+            <style>
+              body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; }
+              h1 { margin-bottom: 1rem; }
+              ul { line-height: 1.9
