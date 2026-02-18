@@ -1,4 +1,4 @@
 # pbi25AppII
 
-Dette er fint markdown
-Fuck jeg tilføjede en bug
+Se slides på: 
+https://skqu.github.io/pbi25AppII/ 
