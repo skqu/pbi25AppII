@@ -1,0 +1,15 @@
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/bin/Debug/net10.0/solution
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/bin/Debug/net10.0/solution.deps.json
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/bin/Debug/net10.0/solution.runtimeconfig.json
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/bin/Debug/net10.0/solution.dll
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/bin/Debug/net10.0/solution.pdb
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/obj/Debug/net10.0/solution.GeneratedMSBuildEditorConfig.editorconfig
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/obj/Debug/net10.0/solution.AssemblyInfoInputs.cache
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/obj/Debug/net10.0/solution.AssemblyInfo.cs
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/obj/Debug/net10.0/solution.csproj.CoreCompileInputs.cache
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/obj/Debug/net10.0/solution.sourcelink.json
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/obj/Debug/net10.0/solution.dll
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/obj/Debug/net10.0/refint/solution.dll
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/obj/Debug/net10.0/solution.pdb
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/obj/Debug/net10.0/solution.genruntimeconfig.cache
+/home/skqu/Undervisning/pbi25AppII/Lektion 10/solution/obj/Debug/net10.0/ref/solution.dll
