@@ -44,7 +44,7 @@ src: ./pages/3.1 system context.md
 hide: false
 layout: image
 # the image source
-image: /img/systemcontext.png
+image: /public/img/systemcontext.png
 
 backgroundSize: contain
 transition: slide-left
@@ -61,7 +61,7 @@ src: ./pages/4.1 container.md
 hide: false
 layout: image
 # the image source
-image: /img/container.png
+image: /public/img/container.png
 
 backgroundSize: contain
 transition: slide-left
@@ -78,7 +78,7 @@ src: ./pages/5.1 component.md
 hide: false
 layout: image
 # the image source
-image: /img/component.png
+image: /public/img/component.png
 
 backgroundSize: contain
 transition: slide-left
@@ -95,7 +95,7 @@ src: ./pages/6.1 code.md
 hide: false
 layout: image
 # the image source
-image: /img/code.png
+image: /public/img/code.png
 
 backgroundSize: contain
 transition: slide-left

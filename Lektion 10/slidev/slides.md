@@ -109,7 +109,7 @@ transition: slide-left
 layout: image-right
 
 # the image source
-image: /figure/image.png
+image: /public/img/image.png
 backgroundSize: contain
 ---
 
