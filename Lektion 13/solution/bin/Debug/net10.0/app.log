@@ -1,0 +1,6 @@
+2026-03-01 23:28:58 | AuthService: Login attempt for user 'stefan'
+2026-03-01 23:28:58 | AuthService: Login success
+2026-03-01 23:28:58 | OrderService: Creating order for 'stefan' with product 'Coffee'
+2026-03-01 23:28:58 | OrderService: Order created successfully
+2026-03-01 23:28:58 | OrderService: Creating order for 'stefan' with product ''
+2026-03-01 23:28:58 | OrderService: Order failed (missing product name)
