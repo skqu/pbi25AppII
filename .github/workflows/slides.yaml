@@ -28,7 +28,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
 
-      - name: Build all Slidev decks
+      - name: Build Slidev decks + generate index
         shell: bash
         run: |
           set -euo pipefail
@@ -39,67 +39,52 @@ jobs:
           rm -rf "$OUT_DIR"
           mkdir -p "$OUT_DIR"
 
-          mapfile -d '' SLIDEV_DIRS < <(
-            find . -type f -path "./Lektion */slidev/package.json" -print0 \
-            | xargs -0 -n1 dirname \
-            | sort -u \
-            | tr '\n' '\0'
+          # Collect lecture info with numeric sort key
+          mapfile -t ENTRIES < <(
+            find . -type f -path "./Lektion */slidev/package.json" \
+            | while read -r pkg; do
+                slidev_dir="$(dirname "$pkg")"
+                lesson_dir="$(dirname "$slidev_dir")"
+                lesson_name="$(basename "$lesson_dir")"
+                number="$(echo "$lesson_name" | sed -E 's/[^0-9]*([0-9]+).*/\1/')"
+                printf "%06d\t%s\t%s\n" "$number" "$lesson_name" "$slidev_dir"
+              done \
+            | sort -n
           )
 
-          if [ "${#SLIDEV_DIRS[@]}" -eq 0 ]; then
-            echo "Ingen Slidev projekter fundet under './Lektion */slidev'."
+          if [ "${#ENTRIES[@]}" -eq 0 ]; then
+            echo "No Slidev projects found."
             exit 1
           fi
 
-          echo "Fundne Slidev projekter:"
-          printf ' - %s\n' "${SLIDEV_DIRS[@]}"
+          for entry in "${ENTRIES[@]}"; do
+            IFS=$'\t' read -r number lesson_name slidev_dir <<< "$entry"
 
-          INDEX_FILE="$OUT_DIR/index.html"
-          cat > "$INDEX_FILE" <<'HTML'
-          <!doctype html>
-          <html lang="da">
-          <head>
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width,initial-scale=1" />
-            <title>Slides</title>
-            <style>
-              body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; }
-              h1 { margin-bottom: 1rem; }
-              ul { line-height: 1.9; padding-left: 1.2rem; }
-              a { text-decoration: none; }
-              a:hover { text-decoration: underline; }
-              .hint { color: #666; font-size: .95rem; margin-top: .5rem; }
-            </style>
-          </head>
-          <body>
-            <h1>Slides</h1>
-            <ul>
-          HTML
+            slug="$(echo "$lesson_name" | tr '[:upper:]' '[:lower:]' | sed -E 's/[[:space:]]+/-/g')"
 
-          for DIR in "${SLIDEV_DIRS[@]}"; do
-            LESSON_DIR="$(dirname "$DIR")"
-            LESSON_NAME="$(basename "$LESSON_DIR")"
+            echo "Building $lesson_name"
 
-            SLUG="$(echo "$LESSON_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[[:space:]]+/-/g')"
+            npm ci --prefix "$slidev_dir"
+            npm run build --prefix "$slidev_dir" -- --base "/$REPO_NAME/$slug/"
 
-            echo ""
-            echo "==> Bygger: $LESSON_NAME ($DIR) -> /$REPO_NAME/$SLUG/"
-
-            npm ci --prefix "$DIR"
-            npm run build --prefix "$DIR" -- --base "/$REPO_NAME/$SLUG/"
-
-            mkdir -p "$OUT_DIR/$SLUG"
-            rsync -a --delete "$DIR/dist/" "$OUT_DIR/$SLUG/"
-
-            echo "              <li><a href=\"./$SLUG/\">$LESSON_NAME</a></li>" >> "$INDEX_FILE"
+            mkdir -p "$OUT_DIR/$slug"
+            rsync -a --delete "$slidev_dir/dist/" "$OUT_DIR/$slug/"
           done
 
-          cat >> "$INDEX_FILE" <<'HTML'
-            </ul>
-            <p class="hint">Automatisk genereret af GitHub Actions.</p>
-          </body>
-          </html>
-          HTML
+          # Generate index from template
+          cp index.template.html "$OUT_DIR/index.html"
+
+          LINKS_FILE="$(mktemp)"
+
+          for entry in "${ENTRIES[@]}"; do
+            IFS=$'\t' read -r number lesson_name slidev_dir <<< "$entry"
+            slug="$(echo "$lesson_name" | tr '[:upper:]' '[:lower:]' | sed -E 's/[[:space:]]+/-/g')"
+
+            echo "    <li><a href=\"./$slug/\">$lesson_name</a></li>" >> "$LINKS_FILE"
+          done
+
+          sed -i '/<!-- LECTURE_LINKS -->/r '"$LINKS_FILE" "$OUT_DIR/index.html"
+          rm "$LINKS_FILE"
 
       - name: Debug output
         run: |
