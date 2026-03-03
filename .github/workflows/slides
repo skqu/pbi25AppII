@@ -1,60 +1,39 @@
-name: Deploy pages
-
-on:
-  workflow_dispatch:
-  push:
-    branches: [staging]
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "lts/*"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
-
-      - name: Build all Slidev decks
+      - name: Build latest lecture + 3 previous
         shell: bash
         run: |
           set -euo pipefail
 
           REPO_NAME="${{ github.event.repository.name }}"
           OUT_DIR="site"
-
           rm -rf "$OUT_DIR"
           mkdir -p "$OUT_DIR"
 
-          # Find alle slidev-projekter under "Lektion */slidev"
-          mapfile -d '' SLIDEV_DIRS < <(
-            find . -type f -path "./Lektion */slidev/package.json" -print0 \
-            | xargs -0 -n1 dirname \
-            | sort -u \
-            | tr '\n' '\0'
+          # Find Lektion folders that contain slidev/package.json, extract lecture number,
+          # sort by number, keep last 4.
+          mapfile -t ENTRIES < <(
+            find . -type f -path "./Lektion */slidev/package.json" -print \
+            | while read -r pkg; do
+                # pkg: ./Lektion 14/slidev/package.json
+                lesson_dir="$(dirname "$(dirname "$pkg")")"   # ./Lektion 14
+                lesson_name="$(basename "$lesson_dir")"       # Lektion 14
+                # extract number (handles "Lektion 14", "Lektion 014", etc.)
+                num="$(echo "$lesson_name" | sed -E 's/[^0-9]*([0-9]+).*/\1/')"
+                slidev_dir="$(dirname "$pkg")"                # ./Lektion 14/slidev
+                printf "%06d\t%s\t%s\n" "$num" "$lesson_name" "$slidev_dir"
+              done \
+            | sort -n \
+            | tail -n 4
           )
 
-          if [ "${#SLIDEV_DIRS[@]}" -eq 0 ]; then
-            echo "Ingen Slidev projekter fundet under './Lektion */slidev'."
+          if [ "${#ENTRIES[@]}" -eq 0 ]; then
+            echo "No Slidev projects found under './Lektion */slidev'."
             exit 1
           fi
 
-          echo "Fundne Slidev projekter:"
-          printf ' - %s\n' "${SLIDEV_DIRS[@]}"
+          echo "Building these lectures (latest 4):"
+          printf '%s\n' "${ENTRIES[@]}" | sed 's/\t/ | /g'
 
+          # Index
           INDEX_FILE="$OUT_DIR/index.html"
           cat > "$INDEX_FILE" <<'HTML'
           <!doctype html>
@@ -77,55 +56,27 @@ jobs:
             <ul>
           HTML
 
-          for DIR in "${SLIDEV_DIRS[@]}"; do
-            LESSON_DIR="$(dirname "$DIR")"
-            LESSON_NAME="$(basename "$LESSON_DIR")"
+          for entry in "${ENTRIES[@]}"; do
+            IFS=$'\t' read -r num lesson_name slidev_dir <<< "$entry"
 
-            SLUG="$(echo "$LESSON_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[[:space:]]+/-/g')"
+            # slug like "lektion-14"
+            slug="$(echo "$lesson_name" | tr '[:upper:]' '[:lower:]' | sed -E 's/[[:space:]]+/-/g')"
 
             echo ""
-            echo "==> Bygger: $LESSON_NAME ($DIR) -> /$REPO_NAME/$SLUG/"
+            echo "==> Building: $lesson_name ($slidev_dir) -> /$REPO_NAME/$slug/"
 
-            npm ci --prefix "$DIR"
-            npm run build --prefix "$DIR" -- --base "/$REPO_NAME/$SLUG/"
+            npm ci --prefix "$slidev_dir"
+            npm run build --prefix "$slidev_dir" -- --base "/$REPO_NAME/$slug/"
 
-            mkdir -p "$OUT_DIR/$SLUG"
-            rsync -a --delete "$DIR/dist/" "$OUT_DIR/$SLUG/"
+            mkdir -p "$OUT_DIR/$slug"
+            rsync -a --delete "$slidev_dir/dist/" "$OUT_DIR/$slug/"
 
-            echo "              <li><a href=\"./$SLUG/\">$LESSON_NAME</a></li>" >> "$INDEX_FILE"
+            echo "              <li><a href=\"./$slug/\">$lesson_name</a></li>" >> "$INDEX_FILE"
           done
 
           cat >> "$INDEX_FILE" <<'HTML'
             </ul>
-            <p class="hint">Automatisk genereret af GitHub Actions.</p>
+            <p class="hint">Viser seneste lektion + tre foregående.</p>
           </body>
           </html>
           HTML
-
-      - name: Debug output
-        run: |
-          echo "== site top =="
-          ls -la site || true
-          echo "== files (maxdepth 2) =="
-          find site -maxdepth 2 -type f | head -n 100 || true
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    name: Deploy
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
