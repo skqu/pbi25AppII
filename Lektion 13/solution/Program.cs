@@ -1,16 +1,23 @@
-﻿using System;
-using System.IO;
-
+﻿
 namespace AppII_LoggerSingleton
 {
-    // Starter Logger (IKKE singleton endnu)
     public class Logger
     {
         private readonly string _logFilePath;
+        private static Logger? _inst = null;
 
-        public Logger(string logFilePath)
+        private Logger(string logFilePath)
         {
             _logFilePath = logFilePath;
+        }
+
+        public static Logger GetInst(string logFilePath)
+        {
+            if ( _inst == null)
+            {
+                _inst = new Logger(logFilePath);
+            }
+            return _inst;
         }
 
         public void Write(string message)
@@ -20,7 +27,6 @@ namespace AppII_LoggerSingleton
         }
     }
 
-    // Klasse 1 der bruger Logger
     public class AuthService
     {
         private readonly Logger _logger;
@@ -50,7 +56,6 @@ namespace AppII_LoggerSingleton
         }
     }
 
-    // Klasse 2 der bruger Logger
     public class OrderService
     {
         private readonly Logger _logger;
@@ -79,11 +84,9 @@ namespace AppII_LoggerSingleton
     {
         static void Main()
         {
-            // Logfil (ligger i projektmappen ved kørsel)
             string logFilePath = "app.log";
 
-            // Starter-løsning: Logger oprettes her og sendes ind (skal ændres til singleton i opgaven)
-            Logger logger = new Logger(logFilePath);
+            Logger logger = Logger.GetInst(logFilePath);
 
             AuthService auth = new AuthService(logger);
             OrderService orders = new OrderService(logger);
@@ -92,7 +95,7 @@ namespace AppII_LoggerSingleton
             if (loggedIn)
             {
                 orders.CreateOrder("stefan", "Coffee");
-                orders.CreateOrder("stefan", "");
+                orders.CreateOrder("stefan", "Chokolade");
             }
 
             Console.WriteLine("Done. Check app.log");
