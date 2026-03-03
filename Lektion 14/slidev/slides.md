@@ -1,11 +1,11 @@
 ---
 layout: intro
 theme: bricks
-title: Lektion 12 - Design Pattern
+title: Lektion 14 - Factory
 transition: slide-left
 ---
-# Lektion 12
-## Design Pattern 
+# Lektion 14
+## Factory
 
 --- 
 src: ./pages/0. goal.md
@@ -20,38 +20,55 @@ transition: slide-left
 ---
 
 ---
-src: ./pages/2. dp.md
+src: ./pages/2. desc.md
 hide: false
 layout: two-cols-header
 transition: slide-left
 ---
 
 ---
-src: ./pages/3. structural.md
+src: ./pages/2.1 desc.md
+hide: false
+layout: two-cols-header
+transition: slide-left
+---
+
+---
+src: ./pages/3. need.md
+hide: false
+transition: slide-left
+layout: two-cols-header
+---
+
+---
+src: ./pages/3.1 need.md
+hide: false
+transition: slide-left
+layout: two-cols-header
+---
+
+---
+src: ./pages/4. solution.md
+hide: false
+transition: slide-left
+layout: two-cols-header
+---
+
+---
+src: ./pages/4.1 solution.md
+hide: false
+transition: slide-left
+layout: two-cols-header
+---
+
+---
+src: ./pages/5. assignment.md
 hide: false
 transition: slide-left
 ---
 
 ---
-src: ./pages/4. behaviroual.md
-hide: false
-transition: slide-left
----
-
----
-src: ./pages/5. constructional.md
-hide: false
-transition: slide-left
----
-
----
-src: ./pages/6. assignment.md
-hide: false 
-transition: slide-left
----
-
----
-src: ./pages/7. next.md
+src: ./pages/6. next.md
 hide: false 
 transition: slide-left
 ---

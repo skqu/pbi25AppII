@@ -1,12 +1,19 @@
-
-
-# Løsning
-
-```mermaid
 classDiagram
-    direction TB
+    direction LR
 
+    class NetworkReportFactory {
+        - _report : INetworkReport
+        + NetworkReportFactory() 
+        + Create(role : UserRole) INetworkReport
+    }
 
+    class UserRole {
+        <<enumeration>>
+        ItManager
+        Leader
+        SecuritySpecialist
+        ItSupport
+    }
 
     class INetworkReport {
         <<interface>>
@@ -42,13 +49,15 @@ classDiagram
         + Render(snapshot : NetworkActivitySnapshot) void
     }
 
-    NetworkActivitySnapshot <.. INetworkReport
+    %% Factory depends on role + returns abstraction
+    NetworkReportFactory ..> UserRole : selects
+    NetworkReportFactory ..> INetworkReport : creates
 
-    INetworkReport <|.. ItManagerReport
-    INetworkReport <|.. LeaderReport
-    INetworkReport <|.. SecuritySpecialistReport
-    INetworkReport <|.. ItSupportReport
+    %% Concrete reports realize the interface
+    ItManagerReport ..|> INetworkReport
+    LeaderReport ..|> INetworkReport
+    SecuritySpecialistReport ..|> INetworkReport
+    ItSupportReport ..|> INetworkReport
 
-
-
-```
+    %% Reports use snapshot data
+    INetworkReport ..> NetworkActivitySnapshot : reads
