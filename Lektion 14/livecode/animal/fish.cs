@@ -1,3 +1,5 @@
+namespace Animal;
+
 class Fish : IAnimal
 {
     public Fish()

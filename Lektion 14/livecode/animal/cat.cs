@@ -1,3 +1,5 @@
+namespace Animal;
+
 class Cat : IAnimal
 {
     public Cat()

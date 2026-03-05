@@ -1,4 +1,6 @@
-﻿class Program
+﻿using Animal;
+
+class Program
 {
     public static void Main(string[] args)
     {

@@ -1,5 +1,5 @@
-classDiagram
-    direction LR
+```mermaid
+    classDiagram
 
     class NetworkReportFactory {
         - _report : INetworkReport
@@ -29,35 +29,35 @@ classDiagram
         + SuspiciousIps : List~string~
     }
 
-    class ItManagerReport {
+    class KpiReport {
         + Title : string
         + Render(snapshot : NetworkActivitySnapshot) void
     }
 
-    class LeaderReport {
+    class HighlevelReport {
         + Title : string
         + Render(snapshot : NetworkActivitySnapshot) void
     }
 
-    class SecuritySpecialistReport {
+    class DetailedReport {
         + Title : string
         + Render(snapshot : NetworkActivitySnapshot) void
     }
 
-    class ItSupportReport {
+    class OverviewReport {
         + Title : string
         + Render(snapshot : NetworkActivitySnapshot) void
     }
 
-    %% Factory depends on role + returns abstraction
-    NetworkReportFactory ..> UserRole : selects
-    NetworkReportFactory ..> INetworkReport : creates
+    UserRole <-- NetworkReportFactory
+    NetworkReportFactory --> INetworkReport
 
-    %% Concrete reports realize the interface
-    ItManagerReport ..|> INetworkReport
-    LeaderReport ..|> INetworkReport
-    SecuritySpecialistReport ..|> INetworkReport
-    ItSupportReport ..|> INetworkReport
 
-    %% Reports use snapshot data
-    INetworkReport ..> NetworkActivitySnapshot : reads
+    INetworkReport <|-- KpiReport
+    INetworkReport <|-- HighlevelReport
+    INetworkReport <|-- DetailedReport
+    INetworkReport <|-- OverviewReport
+
+
+    INetworkReport --> NetworkActivitySnapshot
+```

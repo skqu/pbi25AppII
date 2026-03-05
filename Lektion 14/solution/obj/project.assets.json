@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/skqu/Undervisning/pbi25AppII/Lektion 14/code/code.csproj",
+      "projectUniqueName": "/home/skqu/Undervisning/pbi25AppII/Lektion 14/solution/code.csproj",
       "projectName": "code",
-      "projectPath": "/home/skqu/Undervisning/pbi25AppII/Lektion 14/code/code.csproj",
+      "projectPath": "/home/skqu/Undervisning/pbi25AppII/Lektion 14/solution/code.csproj",
       "packagesPath": "/home/skqu/.nuget/packages/",
-      "outputPath": "/home/skqu/Undervisning/pbi25AppII/Lektion 14/code/obj/",
+      "outputPath": "/home/skqu/Undervisning/pbi25AppII/Lektion 14/solution/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/skqu/.nuget/NuGet/NuGet.Config"

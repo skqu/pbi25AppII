@@ -1,3 +1,5 @@
+namespace Animal
+{
 class Factory
 {
     private IAnimal? _animal = null;
@@ -26,4 +28,5 @@ class Factory
         }
         return _animal;
     }
+}
 }
