@@ -1,11 +1,11 @@
 ---
 layout: intro
 theme: bricks
-title: Lektion 12 - Design Pattern
+title: Lektion 16 - Adapter
 transition: slide-left
 ---
-# Lektion 12
-## Design Pattern 
+# Lektion 16
+## Adapter
 
 --- 
 src: ./pages/0. goal.md
@@ -20,38 +20,32 @@ transition: slide-left
 ---
 
 ---
-src: ./pages/2. dp.md
+src: ./pages/2. desc.md
 hide: false
 layout: two-cols-header
 transition: slide-left
 ---
 
 ---
-src: ./pages/3. structural.md
+src: ./pages/3. need.md
 hide: false
 transition: slide-left
 ---
 
 ---
-src: ./pages/4. behaviroual.md
+src: ./pages/4. solution.md
 hide: false
 transition: slide-left
 ---
 
 ---
-src: ./pages/5. constructional.md
+src: ./pages/5. assignment.md
 hide: false
 transition: slide-left
 ---
 
 ---
-src: ./pages/6. assignment.md
-hide: false 
-transition: slide-left
----
-
----
-src: ./pages/7. next.md
+src: ./pages/6. next.md
 hide: false 
 transition: slide-left
 ---
