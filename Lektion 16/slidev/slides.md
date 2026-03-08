@@ -30,10 +30,17 @@ transition: slide-left
 src: ./pages/3. need.md
 hide: false
 transition: slide-left
+layout: two-cols-header
 ---
 
 ---
 src: ./pages/4. solution.md
+hide: false
+transition: slide-left
+---
+
+---
+src: ./pages/4.1 solution.md
 hide: false
 transition: slide-left
 ---
