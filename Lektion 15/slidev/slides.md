@@ -44,11 +44,17 @@ layout: two-cols-header
 src: ./pages/4. solution.md
 hide: false
 transition: slide-left
-layout: two-cols-header
 ---
 
 ---
 src: ./pages/4.1 solution.md
+hide: false
+transition: slide-left
+layout: two-cols-header
+---
+
+---
+src: ./pages/4.2 solution.md
 hide: false
 transition: slide-left
 layout: two-cols-header
