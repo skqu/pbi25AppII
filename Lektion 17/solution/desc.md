@@ -37,14 +37,21 @@ Systemet skal kunne håndtere forskellige betalingsmetoder:
 ## Opgave
 
 1) Lav et interface:
+```c#
+IPayment
+```
 1) Implementer mindst to betalingstyper.
 1) Lav en PaymentFactory, som opretter korrekt betalingstype.
+
 
 # Del 4 – Adapter
 
 Systemet skal integrere et nyt betalingssystem, som ikke passer til jeres IPayment interface.
 
 Det nye system har følgende metode:
+```c#
+ExternalPayment.MakeTransaction()
+```
 
 ## Opgave
 
@@ -63,7 +70,14 @@ I stedet for at klienten selv skal kalde:
 skal der laves en Facade.
 
 ## Opgave
-
+Lav en klasse: 
+```c#
+OrderFacade
+```
+med metoden: 
+```c#
+PlaceOrder(order, paymentType)
+```
 Facaden skal:
 
 1) vælge betalingsmetode via Factory
