@@ -1,11 +1,11 @@
 ---
 layout: intro
 theme: bricks
-title: Lektion 12 - Design Pattern
+title: Lektion 19 - Command
 transition: slide-left
 ---
-# Lektion 12
-## Design Pattern 
+# Lektion 19
+## Command
 
 --- 
 src: ./pages/0. goal.md
