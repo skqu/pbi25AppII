@@ -42,7 +42,6 @@ jobs:
           BEFORE="${{ github.event.before }}"
           AFTER="${{ github.sha }}"
 
-          # First push or manual run: rebuild all
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ -z "${BEFORE:-}" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
             find . -type f -path "./Lektion */slidev/package.json" \
               | while read -r pkg; do
@@ -66,27 +65,20 @@ jobs:
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Checkout published site branch
-        uses: actions/checkout@v5
-        with:
-          ref: gh-pages
-          path: gh-pages
-        continue-on-error: true
-
-      - name: Initialize gh-pages branch content if missing
+      - name: Prepare gh-pages worktree
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p gh-pages
-          if [ ! -d gh-pages/.git ]; then
-            rm -rf gh-pages
-            git clone --branch gh-pages "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages || {
-              mkdir gh-pages
-              cd gh-pages
-              git init
-              git checkout --orphan gh-pages
-              git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
-            }
+
+          rm -rf gh-pages
+          git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages
+          cd gh-pages
+
+          if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
+            git checkout gh-pages
+          else
+            git checkout --orphan gh-pages
+            git rm -rf . >/dev/null 2>&1 || true
           fi
 
       - name: Build changed Slidev decks
@@ -96,9 +88,6 @@ jobs:
           set -euo pipefail
 
           REPO_NAME="${{ github.event.repository.name }}"
-          TMP_OUT="_built"
-          rm -rf "$TMP_OUT"
-          mkdir -p "$TMP_OUT"
 
           while read -r lesson_name; do
             [ -n "$lesson_name" ] || continue
@@ -158,4 +147,4 @@ jobs:
           fi
 
           git commit -m "Publish pages from ${GITHUB_SHA}"
-          git push origin gh-pages
+          git push origin HEAD:gh-pages
