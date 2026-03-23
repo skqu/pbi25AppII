@@ -1,0 +1,4 @@
+interface ITarget
+{
+    void smth();
+}
