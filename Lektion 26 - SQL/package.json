@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@slidev/cli": "^52.14.2"
+  }
+}
