@@ -6,6 +6,7 @@ transition: slide-left
 ---
 # Lektion 23 - Layered Arkitektur
 
+
 --- 
 src: ./pages/0. goal.md
 hide: false
