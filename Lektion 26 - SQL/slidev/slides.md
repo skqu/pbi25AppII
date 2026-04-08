@@ -1,6 +1,5 @@
 ---
 layout: intro
-theme: bricks
 title: Lektion 12 - Design Pattern
 transition: slide-left
 ---
