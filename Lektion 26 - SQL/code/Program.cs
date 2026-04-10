@@ -1,30 +1,24 @@
+using Code.Services;
+using Code.Context;
+using Code.Repositories;
 using Microsoft.EntityFrameworkCore;
-using code.data;
-using code.repository.user;
-using code.services.user;
 
-namespace code
+namespace Code
 {
-    public class Program
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
             builder.Services.AddOpenApi();
+            builder.Services.AddControllers();
 
-            string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            builder.Services.AddDbContext<UserContext>(options =>
+                options.UseInMemoryDatabase("users.db"));
 
-            builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseMySql(
-                    connectionString,
-                    ServerVersion.AutoDetect(connectionString)
-                ));
-
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<UserRepository>();
+            builder.Services.AddScoped<UsersService>();
 
             var app = builder.Build();
 

@@ -1,10 +1,10 @@
 ---
 layout: intro
-title: Lektion 12 - Design Pattern
+title: Lektion 26 - SQL
 transition: slide-left
 ---
-# Lektion 12
-## Design Pattern 
+# Lektion 26
+## SQL
 
 --- 
 src: ./pages/0. goal.md
@@ -19,38 +19,48 @@ transition: slide-left
 ---
 
 ---
-src: ./pages/2. dp.md
+src: ./pages/2. recap.md
 hide: false
 layout: two-cols-header
 transition: slide-left
 ---
 
 ---
-src: ./pages/3. structural.md
+src: ./pages/3. portfolio.md
 hide: false
 transition: slide-left
 ---
 
 ---
-src: ./pages/4. behaviroual.md
+src: ./pages/4. models.md
 hide: false
 transition: slide-left
 ---
 
 ---
-src: ./pages/5. constructional.md
+src: ./pages/5. repository.md
 hide: false
 transition: slide-left
+layout: two-cols-header
 ---
 
 ---
-src: ./pages/6. assignment.md
+src: ./pages/6. entityframework.md
+hide: false 
+transition: slide-left
+layout: two-cols-header
+---
+
+---
+src: ./pages/6.1 entityframework.md
+hide: false 
+transition: slide-left
+layout: two-cols-header
+---
+
+---
+src: ./pages/7. assignment.md
 hide: false 
 transition: slide-left
 ---
 
----
-src: ./pages/7. next.md
-hide: false 
-transition: slide-left
----
