@@ -29,7 +29,7 @@ namespace Solution.Services.Books
         {
             if(_dictBooks.Keys.Contains(BookId))
             {
-                return _dictBooks[BookId];   
+                return _dictBooks[BookId];
             }else
             {
                 Console.WriteLine("No books added");
