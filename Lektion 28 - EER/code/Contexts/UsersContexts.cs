@@ -6,6 +6,12 @@ namespace code.Contexts
     public class UsersContext : DbContext
     {
         public DbSet<UserModel> Users{get;set;}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+        optionsBuilder.UseInMemoryDatabase("livecode.db");
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // User

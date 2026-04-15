@@ -1,3 +1,26 @@
+using code.Contexts;
+using code.Models;
+using System.Text.Json;
+
+UsersContext usersContext = new UsersContext();
+
+UserModel usersModel = new UserModel();
+
+usersModel.Mail = "skqu@iba.dk";
+usersModel.UserId = 1;
+usersModel.Name = "Stefan Quvang";
+usersModel.Title = "Assistant Professor";
+
+usersContext.Add(usersModel);
+usersContext.SaveChanges();
+
+
+string jsonString = JsonSerializer.Serialize(
+    usersContext.Users.FirstOrDefault(u => u.UserId == 1)
+);
+
+Console.WriteLine(jsonString);
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
