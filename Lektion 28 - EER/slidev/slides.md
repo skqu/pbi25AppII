@@ -3,8 +3,8 @@ layout: intro
 title: Lektion 26 - SQL
 transition: slide-left
 ---
-# Lektion 26
-## SQL
+# Lektion 28
+## EER
 
 --- 
 src: ./pages/0. goal.md
@@ -35,6 +35,7 @@ transition: slide-left
 src: ./pages/3.1 entities.md
 hide: false
 transition: slide-left
+layout: two-cols
 ---
 
 ---
@@ -46,7 +47,21 @@ transition: slide-left
 ---
 src: ./pages/4.1 attributes.md
 hide: false
-transition: slide-left
+transition: fade
+layout: two-cols-header
+---
+
+---
+src: ./pages/4.2 attributes.md
+hide: false
+transition: fade
+---
+
+---
+src: ./pages/4.3 attributes.md
+hide: false
+transition: view-transition
+layout: two-cols-header
 ---
 
 ---
@@ -58,7 +73,7 @@ layout: two-cols-header
 
 ---
 src: ./pages/6. specialisering.md
-hide: false 
+hide: true
 transition: slide-left
 layout: two-cols-header
 ---
