@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "kj/oosFkSZY=",
+  "success": true,
+  "projectFilePath": "/home/skqu/work/Undervisning/pbi25AppII/Lektion 31 - procedural SQL 1/livecode/livecode.csproj",
+  "expectedPackageFiles": [
+    "/home/skqu/.nuget/packages/microsoft.aspnetcore.openapi/10.0.7/microsoft.aspnetcore.openapi.10.0.7.nupkg.sha512",
+    "/home/skqu/.nuget/packages/microsoft.openapi/2.0.0/microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
