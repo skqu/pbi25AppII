@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library API Test Frontend</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <header>
+    <div class="page topbar">
+      <div>
+        <h1>Library API Test Frontend</h1>
+        <div class="small">Simple page for testing your ASP.NET endpoints.</div>
+      </div>
+      <div>
+        <label for="baseUrl">API base URL</label>
+        <input id="baseUrl" value="http://localhost:5028" />
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="grid">
+      <section class="card">
+        <h2>Books</h2>
+        <div class="endpoint">POST /api/books · PUT /api/books · DELETE /api/books · GET /api/books/{bookId}/{copyNumber}</div>
+        <div class="row">
+          <div>
+            <label for="bookId">BookId</label>
+            <input id="bookId" type="number" value="1" />
+          </div>
+          <div>
+            <label for="copyNumber">CopyNumber</label>
+            <input id="copyNumber" type="number" value="0" />
+          </div>
+        </div>
+        <div class="actions">
+          <button onclick="createBook()">Create book/copy</button>
+          <button class="secondary" onclick="updateBook()">Update book</button>
+          <button class="danger" onclick="deleteBook()">Delete book copy</button>
+          <button class="secondary" onclick="getBook()">Get book copy</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Bookshelves</h2>
+        <div class="endpoint">Expected: CRUD shelf + place/remove book copy on shelf</div>
+        <div class="row">
+          <div>
+            <label for="shelfId">BookshelfId</label>
+            <input id="shelfId" type="number" value="0" />
+          </div>
+          <div>
+            <label for="shelfRow">Row</label>
+            <input id="shelfRow" type="number" value="1" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="shelfSize">Size</label>
+            <input id="shelfSize" type="number" value="10" />
+          </div>
+        </div>
+        <div class="actions">
+          <button onclick="createShelf()">Create shelf</button>
+          <button class="danger" onclick="deleteShelf()">Delete shelf</button>
+          <button class="secondary" onclick="addBookToShelf()">Add book to shelf</button>
+          <button class="secondary" onclick="removeBookFromShelf()">Remove book from shelf</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Users</h2>
+        <div class="endpoint">Expected: POST /api/users · PUT /api/users · DELETE /api/users/{userId} · GET /api/users/{userId}</div>
+        <div class="row">
+          <div>
+            <label for="userId">UserId</label>
+            <input id="userId" type="number" value="1" />
+          </div>
+          <div>
+            <label for="userName">Name</label>
+            <input id="userName" value="Ada Lovelace" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="userMail">Mail</label>
+            <input id="userMail" value="ada@example.com" />
+          </div>
+          <div>
+            <label for="userTitle">Title</label>
+            <input id="userTitle" value="Student" />
+          </div>
+        </div>
+        <div class="actions">
+          <button onclick="createUser()">Create user</button>
+          <button class="secondary" onclick="updateUser()">Update user</button>
+          <button class="danger" onclick="deleteUser()">Delete user</button>
+          <button class="secondary" onclick="getUser()">Get user</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Loans</h2>
+        <div class="endpoint">Expected: POST /api/users/loan · DELETE /api/users/loan</div>
+        <div class="row">
+          <div>
+            <label for="loanUserId">UserId</label>
+            <input id="loanUserId" type="number" value="1" />
+          </div>
+          <div>
+            <label for="loanBookId">BookId</label>
+            <input id="loanBookId" type="number" value="1" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="loanCopyNumber">CopyNumber</label>
+            <input id="loanCopyNumber" type="number" value="0" />
+          </div>
+          <div></div>
+        </div>
+        <div class="actions">
+          <button onclick="loanBook()">Loan book</button>
+          <button class="secondary" onclick="returnBook()">Return book</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Manual request</h2>
+        <div class="small">Useful when an endpoint differs from the assumptions in this page.</div>
+        <div class="row">
+          <div>
+            <label for="manualMethod">Method</label>
+            <select id="manualMethod">
+              <option>GET</option>
+              <option>POST</option>
+              <option>PUT</option>
+              <option>DELETE</option>
+            </select>
+          </div>
+          <div>
+            <label for="manualPath">Path</label>
+            <input id="manualPath" value="/api/books/1/0" />
+          </div>
+        </div>
+        <div>
+          <label for="manualBody">JSON body</label>
+          <textarea id="manualBody">{
+  "bookId": 1,
+  "copyNumber": 0
+}</textarea>
+        </div>
+        <div class="actions">
+          <button onclick="sendManual()">Send request</button>
+        </div>
+      </section>
+
+      <section class="card" style="grid-column: 1 / -1;">
+        <h2>Response</h2>
+        <div id="status" class="status">No request sent yet.</div>
+        <pre id="output">{}</pre>
+      </section>
+    </div>
+  </main>
+  <script src="index.js"></script>
+  
+</body>
+</html>
