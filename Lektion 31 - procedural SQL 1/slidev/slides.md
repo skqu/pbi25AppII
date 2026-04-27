@@ -9,7 +9,6 @@ transition: slide-left
 # Lektion 31
 ## Procedural SQL 1
 
-
 ---
 theme: seriph
 class: text-center
