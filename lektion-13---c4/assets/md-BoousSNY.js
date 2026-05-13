@@ -1,0 +1,4 @@
+import{L as e,T as t,Y as n,_ as r,g as i,gt as a,mt as o}from"./modules/shiki-BiiZU2CK.js";import{n as s,t as c}from"./slidev/context-CitRXyF7.js";import{t as l}from"./slidev/default-CPRT7u2r.js";var u={__name:`0. goal.md__slidev_2`,setup(u){let{$slidev:d,$nav:f,$clicksContext:p,$clicks:m,$page:h,$renderContext:g,$frontmatter:_}=s();return p.setup(),(s,u)=>(e(),r(l,a(t(o(c)(o(_),1))),{default:n(()=>[...u[0]||=[i(`p`,null,`Efter endt undervisning kan den studerende:`,-1),i(`pre`,null,[i(`code`,null,`- Gør rede for de 4 forskellige C4 diagrammer
+- Sammenligne C4 med UML
+- Redegøre for brugen af henholdsvis C4 og UML
+`)],-1)]]),_:1},16))}};export{u as default};
