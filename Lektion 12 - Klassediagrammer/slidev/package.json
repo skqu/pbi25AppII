@@ -1,5 +1,5 @@
 {
-  "name": "lektion-10",
+  "name": "lektion-12",
   "type": "module",
   "private": true,
   "scripts": {
@@ -13,5 +13,8 @@
     "@slidev/theme-default": "latest",
     "@slidev/theme-seriph": "latest",
     "vue": "^3.5.27"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.60.0"
   }
 }

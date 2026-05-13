@@ -1,10 +1,10 @@
 ---
 layout: intro
 theme: bricks
-title: Lektion 10 - Klasse diagram
+title: Lektion 12 - Klasse diagram
 transition: slide-left
 ---
-# Lektion 10
+# Lektion 12
 ## Klasse diagram 
 
 --- 
