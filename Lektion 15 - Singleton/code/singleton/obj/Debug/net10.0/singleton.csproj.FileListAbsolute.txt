@@ -1,0 +1,15 @@
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/bin/Debug/net10.0/singleton
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/bin/Debug/net10.0/singleton.deps.json
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/bin/Debug/net10.0/singleton.runtimeconfig.json
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/bin/Debug/net10.0/singleton.dll
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/bin/Debug/net10.0/singleton.pdb
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/obj/Debug/net10.0/singleton.GeneratedMSBuildEditorConfig.editorconfig
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/obj/Debug/net10.0/singleton.AssemblyInfoInputs.cache
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/obj/Debug/net10.0/singleton.AssemblyInfo.cs
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/obj/Debug/net10.0/singleton.csproj.CoreCompileInputs.cache
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/obj/Debug/net10.0/singleton.sourcelink.json
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/obj/Debug/net10.0/singleton.dll
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/obj/Debug/net10.0/refint/singleton.dll
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/obj/Debug/net10.0/singleton.pdb
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/obj/Debug/net10.0/singleton.genruntimeconfig.cache
+/home/skqu/Undervisning/pbi25AppII/Lektion 13/code/singleton/obj/Debug/net10.0/ref/singleton.dll

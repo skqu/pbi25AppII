@@ -1,0 +1,6 @@
+@livecode_HostAddress = http://localhost:5107
+
+GET {{livecode_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Library</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <header>
+    <div class="page topbar">
+      <div>
+        <h1>Simple Library</h1>
+        <p id="loginStatus">Not logged in</p>
+      </div>
+
+      <div>
+        <label for="baseUrl">API base URL</label>
+        <input id="baseUrl" value="http://localhost:5028" />
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="card">
+      <h2>Login</h2>
+
+      <label for="userId">User ID</label>
+      <input id="userId" type="number" value="1" />
+
+      <div class="actions">
+        <button onclick="login()">Login</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Loan a book</h2>
+
+      <div class="row">
+        <div>
+          <label for="bookId">Book ID</label>
+          <input id="bookId" type="number" value="1" />
+        </div>
+
+        <div>
+          <label for="copyNumber">Copy number</label>
+          <input id="copyNumber" type="number" value="0" />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button onclick="loanBook()">Loan book</button>
+        <button class="secondary" onclick="returnBook()">Return book</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="sectionHeader">
+        <h2>My loaned books</h2>
+        <button class="secondary" onclick="loadLoans()">Refresh</button>
+      </div>
+
+      <div id="loans" class="loanList">
+        <p class="small">Login to see your loaned books.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Status</h2>
+      <div id="status" class="status">Ready.</div>
+      <pre id="output">{}</pre>
+    </section>
+  </main>
+
+  <script src="index.js"></script>
+</body>
+</html>

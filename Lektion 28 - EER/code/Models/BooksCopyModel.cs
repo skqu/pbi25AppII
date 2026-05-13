@@ -1,0 +1,16 @@
+namespace code.Models
+{
+    public class BooksCopyModel
+    {
+        public int BookshelfId { get; set; }
+        public int CopyNumber { get; set; }
+        public int BookId { get; set; }
+
+        public string Status { get; set; } = string.Empty;
+        public string Condition { get; set; } = string.Empty;
+
+        public BooksModel Book { get; set; } = null!;
+        public BookshelfModel Bookshelf { get; set; } = null!;
+        public List<LoanModel> Loans { get; set; } = new();
+    }
+}
